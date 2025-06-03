@@ -1,3 +1,4 @@
+import os
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, CallbackContext
 import datebase
@@ -8,8 +9,10 @@ def start(update: Update, context: CallbackContext) -> None:
 
 # Основная функция для запуска бота
 def main():
-    # Замените 'YOUR_TOKEN' на токен вашего бота
-    updater = Updater("7267717438:AAEc_ENZqkM8wfvzLIBh1bEo1UGBEz1qzmk")
+    token = os.getenv("BOT_TOKEN")
+    if not token:
+        raise ValueError("BOT_TOKEN environment variable is not set")
+    updater = Updater(token)
     dp = updater.dispatcher
 
     # Обработчик для команды /start
